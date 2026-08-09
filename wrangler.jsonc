@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "poll-do",
+  "main": "./src/index.ts",
+  "compatibility_date": "2025-08-03",
+
+  // フロントのビルド成果物を Worker から配信する。
+  // API に当たらないパスは index.html に落として SPA として動かす。
+  "assets": {
+    "not_found_handling": "single-page-application",
+  },
+
+  // Durable Object クラスに「呼び出し用の名札」をつける
+  //   name       … コードから env.POLL で参照する名前（binding）
+  //   class_name … 実際の class 名
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "POLL",
+        "class_name": "Poll",
+      },
+    ],
+  },
+
+  // DO に SQLite ストレージを割り当てる宣言。
+  // 一度デプロイした tag は変更不可。追加するときは v2, v3 と足していく。
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["Poll"],
+    },
+  ],
+}
