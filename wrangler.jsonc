@@ -3,6 +3,7 @@
   "name": "poll-do",
   "main": "./src/index.ts",
   "compatibility_date": "2025-08-03",
+  "observability": { "enabled": true },
 
   // フロントのビルド成果物を Worker から配信する。
   // API に当たらないパスは index.html に落として SPA として動かす。
